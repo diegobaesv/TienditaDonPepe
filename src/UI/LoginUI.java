@@ -4,6 +4,8 @@
  */
 package UI;
 
+import utils.AlertUtil;
+
 /**
  *
  * @author dfbaes
@@ -15,6 +17,13 @@ public class LoginUI extends javax.swing.JFrame {
      */
     public LoginUI() {
         initComponents();
+        initConfig();
+    }
+    
+    private void initConfig(){
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setTitle("LOGIN - TIENDITA DE DON PEPE");
     }
 
     /**
@@ -110,7 +119,13 @@ public class LoginUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        // TODO add your handling code here:
+        if("admin".equals(txtNombreUsuario.getText()) && "admin".equals(new String(txtContrasena.getPassword()))){
+            AlertUtil.showInfo("Ingreso correcto!");
+            this.dispose();
+            new PrincipalUI().setVisible(true);
+        } else {
+            AlertUtil.showWarning("Usuario o clave incorrecta");
+        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void txtNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreUsuarioActionPerformed
