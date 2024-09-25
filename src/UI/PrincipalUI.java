@@ -4,6 +4,7 @@
  */
 package UI;
 
+import javax.swing.JFrame;
 /**
  *
  * @author dfbaes
@@ -15,6 +16,13 @@ public class PrincipalUI extends javax.swing.JFrame {
      */
     public PrincipalUI() {
         initComponents();
+        initConfig();
+    }
+    
+    private void initConfig(){
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("PRINCIPAL - TIENDITA DE DON PEPE");
     }
 
     /**
@@ -26,29 +34,87 @@ public class PrincipalUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        pnlDesktop = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        mniSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        mniClienteRegistro = new javax.swing.JMenuItem();
+        mniClienteListar = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        mniProductoRegistro = new javax.swing.JMenuItem();
+        mniProductoListar = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        mniVentaNueva = new javax.swing.JMenuItem();
+        mniVentaHistorial = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        mniReporteVenta = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
+        mniAcercaDe = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 989, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnlDesktopLayout = new javax.swing.GroupLayout(pnlDesktop);
+        pnlDesktop.setLayout(pnlDesktopLayout);
+        pnlDesktopLayout.setHorizontalGroup(
+            pnlDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 991, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnlDesktopLayout.setVerticalGroup(
+            pnlDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 536, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("Archivo");
+
+        mniSalir.setText("Salir");
+        jMenu1.add(mniSalir);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Clientes");
+
+        mniClienteRegistro.setText("Registro Cliente");
+        jMenu2.add(mniClienteRegistro);
+
+        mniClienteListar.setText("Listar Clientes");
+        jMenu2.add(mniClienteListar);
+
         jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Productos");
+
+        mniProductoRegistro.setText("Registro Producto");
+        jMenu3.add(mniProductoRegistro);
+
+        mniProductoListar.setText("Listar Productos");
+        jMenu3.add(mniProductoListar);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Ventas");
+
+        mniVentaNueva.setText("Nueva Venta");
+        jMenu4.add(mniVentaNueva);
+
+        mniVentaHistorial.setText("Historial Ventas");
+        jMenu4.add(mniVentaHistorial);
+
+        jMenuBar1.add(jMenu4);
+
+        jMenu5.setText("Reportes");
+
+        mniReporteVenta.setText("Reporte de Ventas");
+        jMenu5.add(mniReporteVenta);
+
+        jMenuBar1.add(jMenu5);
+
+        jMenu6.setText("Ayuda");
+
+        mniAcercaDe.setText("Acerca de");
+        jMenu6.add(mniAcercaDe);
+
+        jMenuBar1.add(jMenu6);
 
         setJMenuBar(jMenuBar1);
 
@@ -56,11 +122,11 @@ public class PrincipalUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(pnlDesktop, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(pnlDesktop, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -69,9 +135,22 @@ public class PrincipalUI extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem mniAcercaDe;
+    private javax.swing.JMenuItem mniClienteListar;
+    private javax.swing.JMenuItem mniClienteRegistro;
+    private javax.swing.JMenuItem mniProductoListar;
+    private javax.swing.JMenuItem mniProductoRegistro;
+    private javax.swing.JMenuItem mniReporteVenta;
+    private javax.swing.JMenuItem mniSalir;
+    private javax.swing.JMenuItem mniVentaHistorial;
+    private javax.swing.JMenuItem mniVentaNueva;
+    private javax.swing.JDesktopPane pnlDesktop;
     // End of variables declaration//GEN-END:variables
 }
