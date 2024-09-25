@@ -15,6 +15,12 @@ public class ProductosRegistroUI extends javax.swing.JInternalFrame {
      */
     public ProductosRegistroUI() {
         initComponents();
+        initConfig();
+    }
+    
+    private void initConfig(){
+        this.setClosable(true);
+        this.setTitle("Registro de Productos");
     }
 
     /**

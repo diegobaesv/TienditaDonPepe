@@ -15,6 +15,12 @@ public class ProductosListarUI extends javax.swing.JInternalFrame {
      */
     public ProductosListarUI() {
         initComponents();
+        initConfig();
+    }
+    
+    private void initConfig(){
+        this.setClosable(true);
+        this.setTitle("Listado de Productos");
     }
 
     /**

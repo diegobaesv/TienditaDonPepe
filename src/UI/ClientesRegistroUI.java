@@ -15,6 +15,12 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
      */
     public ClientesRegistroUI() {
         initComponents();
+        initConfig();
+    }
+    
+    private void initConfig(){
+        this.setClosable(true);
+        this.setTitle("Registro de Clientes");
     }
 
     /**

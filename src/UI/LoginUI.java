@@ -51,6 +51,12 @@ public class LoginUI extends javax.swing.JFrame {
             }
         });
 
+        txtContrasena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContrasenaActionPerformed(evt);
+            }
+        });
+
         jLabel1.setText("Nombre de usuario:");
 
         jLabel2.setText("Contraseña:");
@@ -120,7 +126,7 @@ public class LoginUI extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         if("admin".equals(txtNombreUsuario.getText()) && "admin".equals(new String(txtContrasena.getPassword()))){
-            AlertUtil.showInfo("Ingreso correcto!");
+            //AlertUtil.showInfo("Ingreso correcto!");
             this.dispose();
             new PrincipalUI().setVisible(true);
         } else {
@@ -131,6 +137,10 @@ public class LoginUI extends javax.swing.JFrame {
     private void txtNombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreUsuarioActionPerformed
+
+    private void txtContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContrasenaActionPerformed
+        btnIngresar.doClick();
+    }//GEN-LAST:event_txtContrasenaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

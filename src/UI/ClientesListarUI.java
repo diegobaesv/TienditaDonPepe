@@ -15,6 +15,12 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
      */
     public ClientesListarUI() {
         initComponents();
+        initConfig();
+    }
+    
+    private void initConfig(){
+        this.setClosable(true);
+        this.setTitle("Listado de Clientes");
     }
 
     /**

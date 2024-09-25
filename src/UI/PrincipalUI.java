@@ -62,56 +62,113 @@ public class PrincipalUI extends javax.swing.JFrame {
         );
         pnlDesktopLayout.setVerticalGroup(
             pnlDesktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 536, Short.MAX_VALUE)
+            .addGap(0, 529, Short.MAX_VALUE)
         );
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-archivo-24.png"))); // NOI18N
         jMenu1.setText("Archivo");
 
+        mniSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-cerrar-ventana-24.png"))); // NOI18N
         mniSalir.setText("Salir");
         jMenu1.add(mniSalir);
 
         jMenuBar1.add(jMenu1);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-clientes-24.png"))); // NOI18N
         jMenu2.setText("Clientes");
 
+        mniClienteRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-registro-24.png"))); // NOI18N
         mniClienteRegistro.setText("Registro Cliente");
+        mniClienteRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniClienteRegistroActionPerformed(evt);
+            }
+        });
         jMenu2.add(mniClienteRegistro);
 
+        mniClienteListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-lista-24.png"))); // NOI18N
         mniClienteListar.setText("Listar Clientes");
+        mniClienteListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniClienteListarActionPerformed(evt);
+            }
+        });
         jMenu2.add(mniClienteListar);
 
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-productos-24.png"))); // NOI18N
         jMenu3.setText("Productos");
+        jMenu3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu3ActionPerformed(evt);
+            }
+        });
 
+        mniProductoRegistro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-registro-24.png"))); // NOI18N
         mniProductoRegistro.setText("Registro Producto");
+        mniProductoRegistro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniProductoRegistroActionPerformed(evt);
+            }
+        });
         jMenu3.add(mniProductoRegistro);
 
+        mniProductoListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-lista-24.png"))); // NOI18N
         mniProductoListar.setText("Listar Productos");
+        mniProductoListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniProductoListarActionPerformed(evt);
+            }
+        });
         jMenu3.add(mniProductoListar);
 
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-ventas-24.png"))); // NOI18N
         jMenu4.setText("Ventas");
 
+        mniVentaNueva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-ventas-24.png"))); // NOI18N
         mniVentaNueva.setText("Nueva Venta");
+        mniVentaNueva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniVentaNuevaActionPerformed(evt);
+            }
+        });
         jMenu4.add(mniVentaNueva);
 
         mniVentaHistorial.setText("Historial Ventas");
+        mniVentaHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniVentaHistorialActionPerformed(evt);
+            }
+        });
         jMenu4.add(mniVentaHistorial);
 
         jMenuBar1.add(jMenu4);
 
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-pdf-24.png"))); // NOI18N
         jMenu5.setText("Reportes");
 
         mniReporteVenta.setText("Reporte de Ventas");
+        mniReporteVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniReporteVentaActionPerformed(evt);
+            }
+        });
         jMenu5.add(mniReporteVenta);
 
         jMenuBar1.add(jMenu5);
 
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons8-ayuda-24.png"))); // NOI18N
         jMenu6.setText("Ayuda");
 
         mniAcercaDe.setText("Acerca de");
+        mniAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAcercaDeActionPerformed(evt);
+            }
+        });
         jMenu6.add(mniAcercaDe);
 
         jMenuBar1.add(jMenu6);
@@ -131,6 +188,51 @@ public class PrincipalUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mniClienteRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniClienteRegistroActionPerformed
+        ClientesRegistroUI clientesRegistroUI = new ClientesRegistroUI();
+        clientesRegistroUI.setVisible(true);
+        clientesRegistroUI.setClosable(true);
+        pnlDesktop.add(clientesRegistroUI);
+    }//GEN-LAST:event_mniClienteRegistroActionPerformed
+
+    private void mniClienteListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniClienteListarActionPerformed
+        ClientesListarUI clientesListarUI = new ClientesListarUI();
+        clientesListarUI.setVisible(true);
+        pnlDesktop.add(clientesListarUI);
+    }//GEN-LAST:event_mniClienteListarActionPerformed
+
+    private void jMenu3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu3ActionPerformed
+
+    private void mniProductoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniProductoRegistroActionPerformed
+        ProductosRegistroUI productosRegistroUI = new ProductosRegistroUI();
+        productosRegistroUI.setVisible(true);
+        pnlDesktop.add(productosRegistroUI);
+    }//GEN-LAST:event_mniProductoRegistroActionPerformed
+
+    private void mniProductoListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniProductoListarActionPerformed
+        ProductosListarUI productosListarUI = new ProductosListarUI();
+        productosListarUI.setVisible(true);
+        pnlDesktop.add(productosListarUI);
+    }//GEN-LAST:event_mniProductoListarActionPerformed
+
+    private void mniVentaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniVentaNuevaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniVentaNuevaActionPerformed
+
+    private void mniVentaHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniVentaHistorialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniVentaHistorialActionPerformed
+
+    private void mniReporteVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniReporteVentaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniReporteVentaActionPerformed
+
+    private void mniAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAcercaDeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mniAcercaDeActionPerformed
 
     
 
