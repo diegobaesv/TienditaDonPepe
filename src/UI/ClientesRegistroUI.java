@@ -4,23 +4,32 @@
  */
 package UI;
 
+import dao.ClienteDao;
+import dao.impl.ClienteDaoImpl;
+import models.Cliente;
+
 /**
  *
  * @author Alumno
  */
 public class ClientesRegistroUI extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form NewJInternalFrame
-     */
+    
+    private ClienteDao clienteDao;
+    
     public ClientesRegistroUI() {
         initComponents();
         initConfig();
+        clienteDao = new ClienteDaoImpl();
     }
     
     private void initConfig(){
         this.setClosable(true);
         this.setTitle("Registro de Clientes");
+    }
+    
+    private String getTipoDocumentoDB(){
+        return cbTipoDocumento.getSelectedItem().toString().charAt(0)+"";
     }
 
     /**
@@ -77,6 +86,11 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
         rbSexoFemenino.setText("Femenino");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -200,6 +214,15 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+       Cliente cliente = new Cliente();
+       cliente.setTipoDocumento(getTipoDocumentoDB());
+       cliente.setNumeroDocumento(txtNumeroDocumento.getText());
+       cliente.setApellidoPaterno(txtApellidoPaterno.getText());
+       cliente.setNombres(txtNombres.getText());
+       clienteDao.insertarCliente(cliente);
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
