@@ -6,7 +6,12 @@ package UI;
 
 import dao.ClienteDao;
 import dao.impl.ClienteDaoImpl;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Enumeration;
+import javax.swing.AbstractButton;
 import models.Cliente;
+import utils.AlertUtil;
 
 /**
  *
@@ -30,6 +35,25 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
     
     private String getTipoDocumentoDB(){
         return cbTipoDocumento.getSelectedItem().toString().charAt(0)+"";
+    }
+    
+    private String getSexoDB() {
+        System.out.println("Voy a leer todos los botones de rbg");
+        for (Enumeration<AbstractButton> buttons = rbgSexo.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            System.out.println(button.getText()+" es seleccionado???");
+            if (button.isSelected()) {
+                System.out.println("SIIIII");
+                return button.getText().charAt(0)+"";
+            }else{
+                System.out.println("NOOOO");
+            }
+        }
+        return null;
+    }
+    
+    private boolean validarRegistro(){
+        return false;
     }
 
     /**
@@ -63,24 +87,29 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Cliente"));
 
-        jLabel1.setText("Tipo documento");
+        jLabel1.setText("*Tipo documento");
 
         cbTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DNI", "CE", "RUC" }));
 
-        jLabel2.setText("Número documento");
+        jLabel2.setText("*Número documento");
 
-        jLabel3.setText("Apellido Paterno");
+        jLabel3.setText("*Apellido Paterno");
 
         jLabel4.setText("Apellido Materno");
 
-        jLabel5.setText("Nombres");
+        jLabel5.setText("*Nombres");
 
-        jLabel6.setText("Fecha Nacimiento");
+        jLabel6.setText("Fecha Nacimiento [yyyy-MM-dd]");
 
         jLabel7.setText("Sexo");
 
         rbgSexo.add(rbSexoMasculino);
         rbSexoMasculino.setText("Masculino");
+        rbSexoMasculino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbSexoMasculinoActionPerformed(evt);
+            }
+        });
 
         rbgSexo.add(rbSexoFemenino);
         rbSexoFemenino.setText("Femenino");
@@ -106,43 +135,40 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(cbTipoDocumento, javax.swing.GroupLayout.Alignment.LEADING, 0, 130, Short.MAX_VALUE))
+                    .addComponent(jLabel3))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbTipoDocumento, javax.swing.GroupLayout.Alignment.LEADING, 0, 130, Short.MAX_VALUE))
-                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel4))
+                                .addGap(54, 54, 54)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtFechaNacimiento)
+                                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 24, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(rbSexoMasculino)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rbSexoFemenino))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(txtNumeroDocumento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                     .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNombres))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(69, 69, 69)
-                                        .addComponent(jLabel5))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(54, 54, 54)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel6))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(rbSexoMasculino)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(rbSexoFemenino))
-                                            .addComponent(jLabel7))))
-                                .addGap(0, 48, Short.MAX_VALUE))))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(387, 387, 387)
                         .addComponent(btnLimpiar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar)))
@@ -171,19 +197,15 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
                             .addComponent(rbSexoMasculino)
                             .addComponent(rbSexoFemenino))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtApellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnGuardar)
@@ -216,13 +238,32 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       Cliente cliente = new Cliente();
-       cliente.setTipoDocumento(getTipoDocumentoDB());
-       cliente.setNumeroDocumento(txtNumeroDocumento.getText());
-       cliente.setApellidoPaterno(txtApellidoPaterno.getText());
-       cliente.setNombres(txtNombres.getText());
-       clienteDao.insertarCliente(cliente);
+        try {
+            if(validarRegistro()){
+                Cliente cliente = new Cliente();
+                cliente.setTipoDocumento(getTipoDocumentoDB());
+                cliente.setNumeroDocumento(txtNumeroDocumento.getText());
+                cliente.setSexo(getSexoDB());
+                cliente.setFechaNacimiento(Date.valueOf(txtFechaNacimiento.getText()));
+                cliente.setApellidoPaterno(txtApellidoPaterno.getText());
+                cliente.setApellidoMaterno(txtApellidoMaterno.getText());
+                cliente.setNombres(txtNombres.getText());
+                clienteDao.insertarCliente(cliente);
+                AlertUtil.showInfo("Se ha registrado correctamente!");
+            } else {
+                AlertUtil.showWarning("Debe ingresar correctamente los campos");
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e);
+            AlertUtil.showError(e.toString());
+        }
+       
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void rbSexoMasculinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbSexoMasculinoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbSexoMasculinoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -6,13 +6,13 @@ import java.util.List;
 import models.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import utils.AlertUtil;
 
 public class ClienteDaoImpl implements ClienteDao {
 
     @Override
-    public void insertarCliente(Cliente cliente) {
+    public void insertarCliente(Cliente cliente) throws Exception {
         Connection cn = null;
+        
         try{
             cn = DatabaseAccess.getConnection();
             cn.setAutoCommit(false);
@@ -32,10 +32,10 @@ public class ClienteDaoImpl implements ClienteDao {
             cn.commit();
             
             pstm.close();
-                       
+            
         } catch(Exception e) {
             System.out.println(e);
-            AlertUtil.showError(e.getMessage());
+            throw new Exception(e.toString());
         } finally {
             try {
                 if(cn != null ){
@@ -43,19 +43,19 @@ public class ClienteDaoImpl implements ClienteDao {
                 }
             } catch (Exception e) {
                 System.out.println(e);
-                AlertUtil.showError(e.getMessage());
+                throw new Exception(e.toString());
             }
         }
     }
 
     @Override
-    public List<Cliente> listarClientes() {
+    public List<Cliente> listarClientes() throws Exception {
         Connection cn = null;
         try{
             
         } catch(Exception e) {
             System.out.println(e);
-            AlertUtil.showError(e.getMessage());
+            throw new Exception(e.toString());
         } finally {
             try {
                 if(cn != null ){
@@ -63,41 +63,20 @@ public class ClienteDaoImpl implements ClienteDao {
                 }
             } catch (Exception e) {
                 System.out.println(e);
-                AlertUtil.showError(e.getMessage());
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public Cliente obtenerCliente(Integer idCliente) {
-        Connection cn = null;
-        try{
-            
-        } catch(Exception e) {
-            System.out.println(e);
-            AlertUtil.showError(e.getMessage());
-        } finally {
-            try {
-                if(cn != null ){
-                    cn.close();
-                }
-            } catch (Exception e) {
-                System.out.println(e);
-                AlertUtil.showError(e.getMessage());
+                throw new Exception(e.toString());
             }
         }
         return null;
     }
 
     @Override
-    public void actualizarCliente(Cliente cliente) {
+    public Cliente obtenerCliente(Integer idCliente) throws Exception {
         Connection cn = null;
         try{
             
         } catch(Exception e) {
             System.out.println(e);
-            AlertUtil.showError(e.getMessage());
+            throw new Exception(e.toString());
         } finally {
             try {
                 if(cn != null ){
@@ -105,19 +84,40 @@ public class ClienteDaoImpl implements ClienteDao {
                 }
             } catch (Exception e) {
                 System.out.println(e);
-                AlertUtil.showError(e.getMessage());
+                throw new Exception(e.toString());
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void actualizarCliente(Cliente cliente) throws Exception {
+        Connection cn = null;
+        try{
+            
+        } catch(Exception e) {
+            System.out.println(e);
+            throw new Exception(e.toString());
+        } finally {
+            try {
+                if(cn != null ){
+                    cn.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+                throw new Exception(e.toString());
             }
         }
     }
 
     @Override
-    public void eliminarCliente(Integer idCliente) {
+    public void eliminarCliente(Integer idCliente) throws Exception {
         Connection cn = null;
         try{
             
         } catch(Exception e) {
             System.out.println(e);
-            AlertUtil.showError(e.getMessage());
+            throw new Exception(e.toString());
         } finally {
             try {
                 if(cn != null ){
@@ -125,7 +125,7 @@ public class ClienteDaoImpl implements ClienteDao {
                 }
             } catch (Exception e) {
                 System.out.println(e);
-                AlertUtil.showError(e.getMessage());
+                throw new Exception(e.toString());
             }
         }
     }
