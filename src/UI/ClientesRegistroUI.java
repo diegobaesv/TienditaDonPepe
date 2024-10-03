@@ -12,6 +12,7 @@ import java.util.Enumeration;
 import javax.swing.AbstractButton;
 import models.Cliente;
 import utils.AlertUtil;
+import utils.Util;
 
 /**
  *
@@ -53,7 +54,43 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
     }
     
     private boolean validarRegistro(){
-        return false;
+        int cantidadErrores = 0;
+        String nroDoc = txtNumeroDocumento.getText();
+        switch (getTipoDocumentoDB()) {
+            case "D":
+                if(nroDoc.length() != 8){
+                    cantidadErrores++;
+                }
+                break;
+            case "C":
+                if(nroDoc.length() < 9 || nroDoc.length() > 12) {
+                    cantidadErrores++;
+                }
+                break;
+            case "R":
+                if(nroDoc.length() != 11) {
+                    cantidadErrores++;
+                }
+                break;
+        }
+        
+        if(txtApellidoPaterno.getText().length()<2 || !Util.isOnlyLetters(txtApellidoPaterno.getText())){
+            cantidadErrores++;
+        }
+        
+        if(txtNombres.getText().length()<2 || !Util.isOnlyLetters(txtNombres.getText())){
+            cantidadErrores++;
+        }
+        
+        if(!txtApellidoMaterno.getText().isEmpty() &&  !Util.isOnlyLetters(txtApellidoMaterno.getText())){
+            cantidadErrores++;
+        }
+        
+        if(!txtFechaNacimiento.getText().isEmpty() && !Util.isValidDate(txtFechaNacimiento.getText())){
+            cantidadErrores++;
+        }
+        
+        return cantidadErrores == 0;
     }
 
     /**
@@ -244,9 +281,9 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
                 cliente.setTipoDocumento(getTipoDocumentoDB());
                 cliente.setNumeroDocumento(txtNumeroDocumento.getText());
                 cliente.setSexo(getSexoDB());
-                cliente.setFechaNacimiento(Date.valueOf(txtFechaNacimiento.getText()));
+                cliente.setFechaNacimiento(txtFechaNacimiento.getText().isEmpty() ? null : Date.valueOf(txtFechaNacimiento.getText()));
                 cliente.setApellidoPaterno(txtApellidoPaterno.getText());
-                cliente.setApellidoMaterno(txtApellidoMaterno.getText());
+                cliente.setApellidoMaterno(txtApellidoMaterno.getText().isEmpty() ? null : txtApellidoMaterno.getText());
                 cliente.setNombres(txtNombres.getText());
                 clienteDao.insertarCliente(cliente);
                 AlertUtil.showInfo("Se ha registrado correctamente!");
