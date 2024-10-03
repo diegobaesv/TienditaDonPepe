@@ -92,6 +92,16 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
         
         return cantidadErrores == 0;
     }
+    
+    private void limpiarFormulario(){
+        txtNumeroDocumento.setText("");
+        txtApellidoPaterno.setText("");
+        txtApellidoMaterno.setText("");
+        txtNombres.setText("");
+        txtFechaNacimiento.setText("");
+        rbgSexo.clearSelection();
+        cbTipoDocumento.setSelectedIndex(0);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -271,7 +281,7 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        // TODO add your handling code here:
+       limpiarFormulario();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -287,6 +297,7 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
                 cliente.setNombres(txtNombres.getText());
                 clienteDao.insertarCliente(cliente);
                 AlertUtil.showInfo("Se ha registrado correctamente!");
+                limpiarFormulario();
             } else {
                 AlertUtil.showWarning("Debe ingresar correctamente los campos");
             }

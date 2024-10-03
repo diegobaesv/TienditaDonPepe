@@ -4,23 +4,56 @@
  */
 package UI;
 
+import dao.ClienteDao;
+import dao.impl.ClienteDaoImpl;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import models.Cliente;
+import utils.AlertUtil;
+
 /**
  *
  * @author dfbaes
  */
 public class ClientesListarUI extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ClientesListarUI
-     */
+    ClienteDao clienteDao;
+    
     public ClientesListarUI() {
+        clienteDao = new ClienteDaoImpl();
         initComponents();
         initConfig();
+        cargarClientes();
     }
     
     private void initConfig(){
         this.setClosable(true);
         this.setTitle("Listado de Clientes");
+    }
+    
+    private void cargarClientes(){
+        try {
+            List<Cliente> clientes = clienteDao.listarClientes();
+            DefaultTableModel model = (DefaultTableModel)tblClientes.getModel();
+            while(model.getRowCount() > 0) {
+                model.removeRow(0);
+            }
+            for (Cliente cliente : clientes) {
+                model.addRow(new Object[]{
+                    cliente.getTipoDocumento(),
+                    cliente.getNumeroDocumento(),
+                    cliente.getApellidoPaterno(),
+                    cliente.getApellidoMaterno(),
+                    cliente.getNombres(),
+                    cliente.getFechaNacimiento(),
+                    cliente.getSexo()
+                });
+            }
+            lblTotalRegistros.setText(model.getRowCount()+"");
+        } catch (Exception e) {
+            AlertUtil.showError(e.toString());
+        }
+        
     }
 
     /**
@@ -36,6 +69,7 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
         lblTotalRegistros = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
+        btnRecargar = new javax.swing.JButton();
 
         jLabel8.setText("Total de registros:");
 
@@ -50,7 +84,7 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -58,6 +92,13 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tblClientes);
+
+        btnRecargar.setText("Recargar");
+        btnRecargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRecargarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,26 +112,33 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRecargar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(lblTotalRegistros))
+                    .addComponent(lblTotalRegistros)
+                    .addComponent(btnRecargar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnRecargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecargarActionPerformed
+        cargarClientes();
+    }//GEN-LAST:event_btnRecargarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRecargar;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTotalRegistros;
