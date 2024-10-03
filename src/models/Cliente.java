@@ -75,6 +75,13 @@ public class Cliente {
     public void setNombres(String nombres) {
         this.nombres = nombres;
     }
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "idCliente=" + idCliente + ", tipoDocumento=" + tipoDocumento + ", numeroDocumento=" + numeroDocumento + ", fechaNacimiento=" + fechaNacimiento + ", sexo=" + sexo + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", nombres=" + nombres + '}';
+    }
+    
+    
     
     
             

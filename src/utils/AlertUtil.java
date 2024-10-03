@@ -24,4 +24,8 @@ public class AlertUtil {
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
     
+    public static boolean showQuestion(String message){
+        return JOptionPane.showConfirmDialog(null, message, "Pregunta", JOptionPane.YES_NO_OPTION) == 0;
+    }
+    
 }

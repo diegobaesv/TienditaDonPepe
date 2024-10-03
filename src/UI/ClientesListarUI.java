@@ -18,12 +18,16 @@ import utils.AlertUtil;
 public class ClientesListarUI extends javax.swing.JInternalFrame {
 
     ClienteDao clienteDao;
+    DefaultTableModel model;
+    List<Cliente> clientes = null;
     
     public ClientesListarUI() {
         clienteDao = new ClienteDaoImpl();
         initComponents();
         initConfig();
+        model = (DefaultTableModel)tblClientes.getModel();
         cargarClientes();
+        
     }
     
     private void initConfig(){
@@ -31,22 +35,47 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
         this.setTitle("Listado de Clientes");
     }
     
+    private String getTipoDocumentoView(String tipoDocumento){
+        switch (tipoDocumento) {
+            case "D":
+                return "DNI";
+            case "C":
+                return "CE";
+            case "R":
+                return "RUC";
+            default:
+                return "-";
+        }
+    }
+    
+    private String getSexoView(String sexo){
+        if(sexo == null) return "";
+        switch (sexo) {
+            case "M":
+                return "Masculino";
+            case "F":
+                return "Femenino";
+            default:
+                return "";
+        }
+    }
+    
     private void cargarClientes(){
         try {
-            List<Cliente> clientes = clienteDao.listarClientes();
-            DefaultTableModel model = (DefaultTableModel)tblClientes.getModel();
+            clientes = clienteDao.listarClientes();
             while(model.getRowCount() > 0) {
                 model.removeRow(0);
             }
             for (Cliente cliente : clientes) {
                 model.addRow(new Object[]{
-                    cliente.getTipoDocumento(),
+                    cliente.getIdCliente(),
+                    getTipoDocumentoView(cliente.getTipoDocumento()),
                     cliente.getNumeroDocumento(),
                     cliente.getApellidoPaterno(),
                     cliente.getApellidoMaterno(),
                     cliente.getNombres(),
                     cliente.getFechaNacimiento(),
-                    cliente.getSexo()
+                    getSexoView(cliente.getSexo())
                 });
             }
             lblTotalRegistros.setText(model.getRowCount()+"");
@@ -70,6 +99,8 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
         btnRecargar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
 
         jLabel8.setText("Total de registros:");
 
@@ -80,15 +111,22 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Tipo Doc", "Nro Doc", "Ap. Paterno", "Ap. Materno", "Nombres", "Fec. Nacimento", "Sexo"
+                "Id Cliente", "Tipo Doc", "Nro Doc", "Ap. Paterno", "Ap. Materno", "Nombres", "Fec. Nacimento", "Sexo"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblClientes);
@@ -99,6 +137,15 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
                 btnRecargarActionPerformed(evt);
             }
         });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setText("Actualizar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,14 +160,23 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotalRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnRecargar)))
+                        .addComponent(btnRecargar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnActualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnActualizar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -136,8 +192,31 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
         cargarClientes();
     }//GEN-LAST:event_btnRecargarActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int filaSeleccionada = tblClientes.getSelectedRow();
+        if(filaSeleccionada!=-1){
+            try {
+                if(AlertUtil.showQuestion("¿Deseas eliminar el cliente?")){
+                    Cliente cliente = clientes.get(filaSeleccionada);
+                    clienteDao.eliminarCliente(cliente.getIdCliente());
+                    cargarClientes();
+                    AlertUtil.showInfo("Cliente eliminado con exito!");
+                }
+            } catch (Exception e) {
+                AlertUtil.showError(e.toString());
+            }
+            
+        }else{
+            AlertUtil.showWarning("Debe seleccionar una fila");
+        }
+        
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnRecargar;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;

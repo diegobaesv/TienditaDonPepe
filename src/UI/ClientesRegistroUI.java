@@ -19,7 +19,6 @@ import utils.Util;
  * @author Alumno
  */
 public class ClientesRegistroUI extends javax.swing.JInternalFrame {
-
     
     private ClienteDao clienteDao;
     

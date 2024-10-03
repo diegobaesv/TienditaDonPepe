@@ -136,7 +136,19 @@ public class ClienteDaoImpl implements ClienteDao {
     public void eliminarCliente(Integer idCliente) throws Exception {
         Connection cn = null;
         try{
+            cn = DatabaseAccess.getConnection();
+            cn.setAutoCommit(false);
             
+            String sql = "DELETE FROM clientes WHERE id_cliente = ?";
+            
+            PreparedStatement pstm = cn.prepareStatement(sql);
+            pstm.setInt(1, idCliente);
+            
+            pstm.executeUpdate();
+            cn.commit();
+            
+            pstm.close();
+           
         } catch(Exception e) {
             System.out.println(e);
             throw new Exception(e.toString());
