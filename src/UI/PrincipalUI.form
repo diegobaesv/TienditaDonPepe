@@ -191,6 +191,9 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="pnlDesktop">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">

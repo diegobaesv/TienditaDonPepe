@@ -21,16 +21,22 @@ import utils.Util;
 public class ClientesRegistroUI extends javax.swing.JInternalFrame {
     
     private ClienteDao clienteDao;
+    private Cliente cliente;
     
-    public ClientesRegistroUI() {
+    public ClientesRegistroUI(){
+        this(null);
+    }
+    
+    public ClientesRegistroUI(Cliente cliente) {
         initComponents();
-        initConfig();
+        this.cliente = cliente;
         clienteDao = new ClienteDaoImpl();
+        initConfig();
     }
     
     private void initConfig(){
         this.setClosable(true);
-        this.setTitle("Registro de Clientes");
+        this.setTitle(this.cliente == null ? "Registro de Clientes" : "Actualizacion de Cliente");
     }
     
     private String getTipoDocumentoDB(){

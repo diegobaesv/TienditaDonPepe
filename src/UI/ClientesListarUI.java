@@ -146,6 +146,11 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
         });
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,6 +217,19 @@ public class ClientesListarUI extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        int filaSeleccionada = tblClientes.getSelectedRow();
+        if(filaSeleccionada!=-1){
+            Cliente cliente = clientes.get(filaSeleccionada);
+            ClientesRegistroUI clientesRegistroUI = new ClientesRegistroUI(cliente);
+            clientesRegistroUI.setVisible(true);
+            clientesRegistroUI.setClosable(true);
+            PrincipalUI.addToPanelDesktop(clientesRegistroUI);
+        }else{
+            AlertUtil.showWarning("Debe seleccionar una fila");
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

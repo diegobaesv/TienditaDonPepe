@@ -8,16 +8,16 @@ import java.sql.SQLException;
 public class DatabaseAccess {
     
     
-    /*private final static String DRIVER_CLASS_NAME = "org.postgresql.Driver";
+    private final static String DRIVER_CLASS_NAME = "org.postgresql.Driver";
     private final static String URL = "jdbc:postgresql://localhost/TIENDITA_DONPEPE";
     private final static String USERNAME = "postgres";
-    private final static String PASSWORD = "root";*/
+    private final static String PASSWORD = "root";
     
     
-    private final static String DRIVER_CLASS_NAME = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    /*private final static String DRIVER_CLASS_NAME = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private final static String URL = "jdbc:sqlserver://localhost;encrypt=false;databaseName=TIENDITA_DONPEPE";
     private final static String USERNAME = "sa";
-    private final static String PASSWORD = "sqladmin";
+    private final static String PASSWORD = "sqladmin";*/
 
     private DatabaseAccess() {
     }
