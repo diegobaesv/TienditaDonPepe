@@ -32,11 +32,42 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
         this.cliente = cliente;
         clienteDao = new ClienteDaoImpl();
         initConfig();
+        initData();
     }
     
     private void initConfig(){
         this.setClosable(true);
         this.setTitle(this.cliente == null ? "Registro de Clientes" : "Actualizacion de Cliente");
+    }
+    
+    private void initData(){
+        if(cliente != null){
+            txtNombres.setText(cliente.getNombres());
+            txtApellidoPaterno.setText(cliente.getApellidoPaterno());
+            txtApellidoMaterno.setText(cliente.getApellidoMaterno());
+            txtNumeroDocumento.setText(cliente.getNumeroDocumento());
+            txtFechaNacimiento.setText(cliente.getFechaNacimiento()==null ? "":(cliente.getFechaNacimiento()+""));
+            cbTipoDocumento.setSelectedIndex(getIndexTipoDocumento(cliente.getTipoDocumento()));
+            if("F".equals(cliente.getSexo())){
+                rbgSexo.setSelected(rbSexoFemenino.getModel(), true);
+            } else if("M".equals(cliente.getSexo())){
+                rbgSexo.setSelected(rbSexoMasculino.getModel(), true);
+            }
+            
+        }
+    }
+    
+    private int getIndexTipoDocumento(String tipoDocumento){
+        switch (tipoDocumento) {
+            case "D":
+                return 0;
+            case "C":
+                return 1;
+            case "R":
+                return 2;
+            default:
+                return 0;
+        }
     }
     
     private String getTipoDocumentoDB(){
@@ -292,17 +323,29 @@ public class ClientesRegistroUI extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
             if(validarRegistro()){
-                Cliente cliente = new Cliente();
-                cliente.setTipoDocumento(getTipoDocumentoDB());
-                cliente.setNumeroDocumento(txtNumeroDocumento.getText());
-                cliente.setSexo(getSexoDB());
-                cliente.setFechaNacimiento(txtFechaNacimiento.getText().isEmpty() ? null : Date.valueOf(txtFechaNacimiento.getText()));
-                cliente.setApellidoPaterno(txtApellidoPaterno.getText());
-                cliente.setApellidoMaterno(txtApellidoMaterno.getText().isEmpty() ? null : txtApellidoMaterno.getText());
-                cliente.setNombres(txtNombres.getText());
-                clienteDao.insertarCliente(cliente);
-                AlertUtil.showInfo("Se ha registrado correctamente!");
-                limpiarFormulario();
+                if(this.cliente == null){
+                    Cliente newCliente = new Cliente();
+                    newCliente.setTipoDocumento(getTipoDocumentoDB());
+                    newCliente.setNumeroDocumento(txtNumeroDocumento.getText());
+                    newCliente.setSexo(getSexoDB());
+                    newCliente.setFechaNacimiento(txtFechaNacimiento.getText().isEmpty() ? null : Date.valueOf(txtFechaNacimiento.getText()));
+                    newCliente.setApellidoPaterno(txtApellidoPaterno.getText());
+                    newCliente.setApellidoMaterno(txtApellidoMaterno.getText().isEmpty() ? null : txtApellidoMaterno.getText());
+                    newCliente.setNombres(txtNombres.getText());
+                    clienteDao.insertarCliente(newCliente);
+                    AlertUtil.showInfo("Se ha registrado correctamente!");
+                    limpiarFormulario();
+                }else{
+                    cliente.setTipoDocumento(getTipoDocumentoDB());
+                    cliente.setNumeroDocumento(txtNumeroDocumento.getText());
+                    cliente.setSexo(getSexoDB());
+                    cliente.setFechaNacimiento(txtFechaNacimiento.getText().isEmpty() ? null : Date.valueOf(txtFechaNacimiento.getText()));
+                    cliente.setApellidoPaterno(txtApellidoPaterno.getText());
+                    cliente.setApellidoMaterno(txtApellidoMaterno.getText().isEmpty() ? null : txtApellidoMaterno.getText());
+                    cliente.setNombres(txtNombres.getText());
+                    clienteDao.actualizarCliente(cliente);
+                    AlertUtil.showInfo("Se ha actualizado correctamente!");
+                }
             } else {
                 AlertUtil.showWarning("Debe ingresar correctamente los campos");
             }

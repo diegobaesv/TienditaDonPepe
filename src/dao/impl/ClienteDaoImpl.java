@@ -116,7 +116,25 @@ public class ClienteDaoImpl implements ClienteDao {
     public void actualizarCliente(Cliente cliente) throws Exception {
         Connection cn = null;
         try{
+            cn = DatabaseAccess.getConnection();
+            cn.setAutoCommit(false);
             
+            String sql = "UPDATE clientes SET tipo_documento = ?, numero_documento = ?, fecha_nacimiento = ?, sexo = ?, apellido_paterno = ?, apellido_materno = ?, nombres = ? WHERE id_cliente = ?";
+            
+            PreparedStatement pstm = cn.prepareStatement(sql);
+            pstm.setString(1, cliente.getTipoDocumento());
+            pstm.setString(2, cliente.getNumeroDocumento());
+            pstm.setDate(3, cliente.getFechaNacimiento());
+            pstm.setString(4, cliente.getSexo());
+            pstm.setString(5, cliente.getApellidoPaterno());
+            pstm.setString(6, cliente.getApellidoMaterno());
+            pstm.setString(7, cliente.getNombres());
+            pstm.setInt(8, cliente.getIdCliente());
+            
+            pstm.executeUpdate();
+            cn.commit();
+            
+            pstm.close();
         } catch(Exception e) {
             System.out.println(e);
             throw new Exception(e.toString());
